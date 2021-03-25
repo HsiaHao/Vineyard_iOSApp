@@ -12,6 +12,9 @@
 		F4F09E201DB4838C00026BB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4F09E1F1DB4838C00026BB2 /* Assets.xcassets */; };
 		F4F09E231DB4838C00026BB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F09E211DB4838C00026BB2 /* LaunchScreen.storyboard */; };
 		F4F09E2B1DB483AE00026BB2 /* SimpleVideoCamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */; };
+		F81151FD260CDC74004DE755 /* VIdeoListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */; };
+		F8115201260CE012004DE755 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8115200260CE012004DE755 /* VideoCell.swift */; };
+		F8115205260CE14B004DE755 /* VIdeo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8115204260CE14B004DE755 /* VIdeo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		F4F09E221DB4838C00026BB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4F09E241DB4838C00026BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleVideoCamController.swift; sourceTree = "<group>"; };
+		F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIdeoListScreen.swift; sourceTree = "<group>"; };
+		F8115200260CE012004DE755 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		F8115204260CE14B004DE755 /* VIdeo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIdeo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +65,10 @@
 				F4F09E1F1DB4838C00026BB2 /* Assets.xcassets */,
 				F4F09E211DB4838C00026BB2 /* LaunchScreen.storyboard */,
 				F4F09E241DB4838C00026BB2 /* Info.plist */,
+				F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */,
+				F8115200260CE012004DE755 /* VideoCell.swift */,
 				F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */,
+				F8115204260CE14B004DE755 /* VIdeo.swift */,
 			);
 			path = SimpleVideoCam;
 			sourceTree = "<group>";
@@ -138,8 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8115205260CE14B004DE755 /* VIdeo.swift in Sources */,
 				F4F09E191DB4838C00026BB2 /* AppDelegate.swift in Sources */,
+				F8115201260CE012004DE755 /* VideoCell.swift in Sources */,
 				F4F09E2B1DB483AE00026BB2 /* SimpleVideoCamController.swift in Sources */,
+				F81151FD260CDC74004DE755 /* VIdeoListScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
