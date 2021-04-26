@@ -10,23 +10,71 @@ import UIKit
 import AVFoundation
 import AVKit
 import Photos
+import CoreLocation
+import MapKit
 
 
-class SimpleVideoCamController: UIViewController {
+class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
 
     @IBOutlet var cameraButton:UIButton!
     
+    let locationManager = CLLocationManager()
+    let regionInMeters: Double = 10000
+    
+    let albumName = "Vineyard"
     let captureSession = AVCaptureSession()
     var currentDevice: AVCaptureDevice!
     var videoFileOutput: AVCaptureMovieFileOutput!
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+    var userCollections: PHFetchResult<PHCollection>?
     
+    let screenWidth = UIScreen.main.bounds.width-10
+    let screenHeight = UIScreen.main.bounds.height/2
+    var selectedRow = 0
+    var zone = 0
+    var row = 0
+    
+    var pickerData:[[String]] = [["ZONE"],["1","2","3","4","5","6","7","8"],["ROW"],["1","2","3","4","5","6","7","8"]]
+    @IBOutlet weak var videoListButton: UIButton!
     var isRecording = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load...")
+        checkLocationServices()
         configure()
+    }
+    
+    // GPS functions
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAuthorization()
+        } else {
+            // Show alert letting the user know they have to turn this on.
+        }
+    }
+    func checkLocationAuthorization() {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            break
+        case .denied:
+            // Show alert instructing them how to turn on permissions
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            // Show an alert letting them know what's up
+            break
+        case .authorizedAlways:
+            break
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,26 +113,26 @@ class SimpleVideoCamController: UIViewController {
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer?.frame = view.layer.frame
 
-        // Bring the camera button to front
+        // Bring the camera button and list button to front
         view.bringSubviewToFront(cameraButton)
-        
+        view.bringSubviewToFront(videoListButton)
         
         if let device = currentDevice {
                 // 1
-            print("1")
+//            print("1")
                 for vFormat in currentDevice!.formats {
                     // 2
-                    print("2")
+//                    print("2")
                     let ranges = vFormat.videoSupportedFrameRateRanges as [AVFrameRateRange]
                     let frameRates = ranges[0]
-                    print("rate: ", frameRates)
+//                    print("rate: ", frameRates)
                     // 3
                     if frameRates.maxFrameRate == 240 {
-                        print("3")
+//                        print("3")
                         // 4
                         do{
-                            print("rate: ",frameRates.maxFrameDuration)
-                            print("set rate to 240 fps")
+//                            print("rate: ",frameRates.maxFrameDuration)
+//                            print("set rate to 240 fps")
                             try device.lockForConfiguration()
                             device.activeFormat = vFormat as AVCaptureDevice.Format
                             device.activeVideoMinFrameDuration = frameRates.minFrameDuration
@@ -100,11 +148,47 @@ class SimpleVideoCamController: UIViewController {
         print("framerate: ", device.activeFormat)
         captureSession.startRunning()
     }
+    // Create Album
+    func createPhotoLibraryAlbum(name: String) {
+        var albumPlaceholder: PHObjectPlaceholder?
+        PHPhotoLibrary.shared().performChanges({
+            // Request creating an album with parameter name
+            let createAlbumRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: name)
+            // Get a placeholder for the new album
+            albumPlaceholder = createAlbumRequest.placeholderForCreatedAssetCollection
+        }, completionHandler: { success, error in
+            if success {
+                guard let placeholder = albumPlaceholder else {
+                    fatalError("Album placeholder is nil")
+                }
+
+                let fetchResult = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
+                guard let album: PHAssetCollection = fetchResult.firstObject else {
+                    // FetchResult has no PHAssetCollection
+                    return
+                }
+
+                // Saved successfully!
+                print(album.assetCollectionType)
+            }
+            else if let e = error {
+                print(e)
+                // Save album failed with error
+            }
+            else {
+                print("saved sucessed...")
+                // Save album failed with no error
+            }
+        })
+    }
     
     // MARK: - Action methods
     
     @IBAction func unwindToCamera(segue:UIStoryboardSegue) {
         
+    }
+    @IBAction func toList(_ sender: UIButton) {
+        performSegue(withIdentifier: "videoList", sender: nil)
     }
     
     @IBAction func capture(sender: AnyObject) {
@@ -125,8 +209,11 @@ class SimpleVideoCamController: UIViewController {
                 self.cameraButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             }, completion: nil)
             cameraButton.layer.removeAllAnimations()
+            let titleItem =  AVMutableMetadataItem()
+            titleItem.identifier = AVMetadataIdentifier.commonIdentifierTitle
+            
             videoFileOutput?.stopRecording()
-            print("outputdata: ", videoFileOutput.availableVideoCodecTypes)
+            //print("outputdata: ", videoFileOutput.availableVideoCodecTypes)
         }
     }
 
@@ -137,6 +224,9 @@ class SimpleVideoCamController: UIViewController {
             let videoPlayerViewController = segue.destination as! AVPlayerViewController
             let videoFileURL = sender as! URL
             videoPlayerViewController.player = AVPlayer(url: videoFileURL)
+        }
+        if segue.identifier == "videoList" {
+            print("go to list...")
         }
     }
 
@@ -149,83 +239,153 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
             return
         }
         //Save to album
-        let asset = AVAsset(url: outputFileURL)
-        let formatsKey = "availableMetadataFormats"
-
-        asset.loadValuesAsynchronously(forKeys: [formatsKey]) {
-            var error: NSError? = nil
-            let status = asset.statusOfValue(forKey: formatsKey, error: &error)
-            if status == .loaded {
-                for format in asset.availableMetadataFormats {
-                    let metadata = asset.metadata(forFormat: format)
-                    print(metadata)
-                    // process format-specific metadata collection
-                }
-            }
-        }
         UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-        //print(AVAssetExportSession.exportPresets(compatibleWith: asset) )
-//        PHPhotoLibrary.requestAuthorization { status in
-//            if status == .authorized {
-//                // Save the movie file to the photo library and cleanup.
-//                PHPhotoLibrary.shared().performChanges({
-//                    let options = PHAssetResourceCreationOptions()
-//                    options.shouldMoveFile = true
-//                    let creationRequest = PHAssetCreationRequest.forAsset()
-//                    creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
-//                }, completionHandler: { success, error in
-//                    if !success {
-//                        print("AVCam couldn't save the movie to your photo library: \(String(describing: error))")
-//                    }
-//                    //cleanup()
-//                }
-//                )
-//            }}
-        //PHAsset
-        let avAsset = AVAsset(url: outputFileURL)
-        let player = AVPlayer(url: outputFileURL)
-        for track in player.currentItem!.tracks{
-            print("current framerate: ", track.currentVideoFrameRate)
+        // check if an album exist. If not create one
+        var exist_album = false
+        userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+        let number_of_album = userCollections?.count
+        for i in 0...number_of_album!-1{
+            if userCollections?.object(at: i).localizedTitle==albumName{
+                exist_album = true
+            }
+//            print(userCollections?.object(at: i).localizedTitle)
         }
-        //let imageManager = PHCachingImageManager()
-        let requestOptions = PHVideoRequestOptions()
-        requestOptions.version = .current
-//        let comp = AVComposition(url: outputFileURL)
-//        let avAsset = AVAsset(url: outputFileURL)
-//        for track in av.tracks(withMediaType: AVMediaType.video) {
-//            for segment in track.segments {
-//              print("track:")
-//              dump(segment)
-//            }
-//          }
-        // Chech meta data
-        //let asset = AVAsset(url: outputFileURL)
-        //let formatsKey = "availableMetadataFormats"
+        if exist_album==false{
+            createPhotoLibraryAlbum(name: albumName)
+            print("create new test album...")
+        }else{
+            print("the album exists...")
+        }
         
-        // build a mutable video object
-        let fullRange = CMTimeRange(start: CMTime.zero, duration: CMTime(value: 30, timescale: 1))
-        let emptyComposition = AVMutableComposition()
-        let track = emptyComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: 1)
-        let initialSegment = AVCompositionTrackSegment(url: outputFileURL, trackID: 1, sourceTimeRange: fullRange, targetTimeRange: fullRange)
-
-        track!.segments = [initialSegment]
+        //save the video to the vineyard album
+        var assetAlbum: PHAssetCollection?
         
-        let firstHalf = CMTimeRange(start: CMTime.zero, duration: CMTime(value: 15, timescale: 1))
-
-        track!.scaleTimeRange(firstHalf, toDuration: fullRange.duration)
-        //
-//        asset.loadValuesAsynchronously(forKeys: [formatsKey]) {
-//            var error: NSError? = nil
-//            let status = asset.statusOfValue(forKey: formatsKey, error: &error)
-//            if status == .loaded {
-//                for format in asset.availableMetadataFormats {
-//                    let metadata = asset.metadata(forFormat: format)
-//                    print("data:")
-//                    print(metadata)
-//                }
+        //find the vineyard album
+        let list = PHAssetCollection
+            .fetchAssetCollections(with: .album, subtype: .any, options: nil)
+        list.enumerateObjects({ (album, index, stop) in
+            let assetCollection = album
+            if self.albumName == assetCollection.localizedTitle {
+                assetAlbum = assetCollection
+                stop.initialize(to: true)
+            }
+        })
+        // assetalbum -> vinyard album
+        // save the video to vineyard album
+        PHPhotoLibrary.shared().performChanges({
+            //添加的相机胶卷
+            let result = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
+            //是否要添加到相簿
+            if !self.albumName.isEmpty {
+                let assetPlaceholder = result?.placeholderForCreatedAsset
+                let albumChangeRequset = PHAssetCollectionChangeRequest(for:assetAlbum!)
+                albumChangeRequset!.addAssets([assetPlaceholder!]  as NSArray)
+            }
+        })
+       // print("assetAlbum:" ,assetAlbum)
+        
+        
+        //performSegue(withIdentifier: "playVideo", sender: outputFileURL)
+        popUpPicker()
+    }
+    
+    //Mark: UIPickerView
+    func popUpPicker(){
+        let vc = UIViewController()
+        vc.preferredContentSize=CGSize(width: screenWidth, height: screenHeight)
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        pickerView.delegate = self
+        pickerView.dataSource=self
+        pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
+        
+        vc.view.addSubview(pickerView)
+        pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
+        pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        
+        let alert = UIAlertController(title: "Select Zone and Row", message: "", preferredStyle: .actionSheet)
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        
+        alert.setValue(vc, forKey: "contentViewController")
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+                }))
+                
+                alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (UIAlertAction) in
+                    self.selectedRow = pickerView.selectedRow(inComponent: 0)
+                    //self.selectedRowTextColor = pickerView.selectedRow(inComponent: 1)
+                    //let selected = Array(self.backGroundColours)[self.selectedRow]
+                    //let selectedTextColor = Array(self.backGroundColours)[self.selectedRowTextColor]
+                    //let colour = selected.value
+                    
+                }))
+                
+                self.present(alert, animated: true, completion: nil)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 4
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData[component].count
+    }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 60
+    }
+    
+//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
+//        if component==1 || component==3{
+//
+//            label.text = String(row)
+//            label.sizeToFit()
+//            return label
+//        }else{
+//            if component==0{
+//                label.text="ZONE"
+//            }else{
+//                label.text="ROW"
+//                print("ROW COMPONENT: ",component)
 //            }
 //        }
-        
-        performSegue(withIdentifier: "playVideo", sender: outputFileURL)
+//        let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
+//        label2.text = pickerData[component][row]
+//        return label2
+//    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return "ZONE:" //header
+        } else if component == 1 {
+            return "\(row + 1)" //value
+        } else if component == 2 {
+            return "ROW:" //header
+        } else if component == 3 {
+            return "\(row+1)" //value
+        }
+        return nil
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(row, component)
+        if component==1{
+            self.zone = row+1
+        }
+        if component==3{
+            self.row = row+1
+        }
+        print("Selected Zone: ",zone," Row: ",self.row)
+    }
+}
+
+extension SimpleVideoCamController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAuthorization()
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j7G-k6-PNZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -28,30 +28,49 @@
                                     <action selector="captureWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fsB-ZB-e6R"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQ7-z4-6oM" userLabel="List_Button">
+                                <rect key="frame" x="333" y="40" width="45" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="LQT-3D-t8k"/>
+                                    <constraint firstAttribute="width" constant="45" id="RgO-mA-VRm"/>
+                                </constraints>
+                                <state key="normal" image="photo">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="toList:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pAf-kl-Yw6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wjf-d9-8Zf"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wjf-d9-8Zf" firstAttribute="bottom" secondItem="rZM-E1-c6K" secondAttribute="bottom" constant="46" id="BE1-Z1-bCS"/>
+                            <constraint firstItem="WQ7-z4-6oM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="CqZ-rq-TLJ"/>
+                            <constraint firstItem="wjf-d9-8Zf" firstAttribute="trailing" secondItem="WQ7-z4-6oM" secondAttribute="trailing" constant="12" id="TqK-3c-KFa"/>
                             <constraint firstItem="rZM-E1-c6K" firstAttribute="centerX" secondItem="wjf-d9-8Zf" secondAttribute="centerX" id="sld-tC-vnO"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraButton" destination="rZM-E1-c6K" id="LPW-J2-SuD"/>
+                        <outlet property="videoListButton" destination="WQ7-z4-6oM" id="xIt-ay-KN0"/>
                         <segue destination="98c-TI-1XD" kind="presentation" identifier="playVideo" id="VtR-HG-5I1"/>
+                        <segue destination="DAq-uK-nY5" kind="show" identifier="videoList" id="zoy-7Y-vGM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-172" y="102"/>
+            <point key="canvasLocation" x="-172.30769230769229" y="101.65876777251184"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="gpP-zR-6KU">
             <objects>
-                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="98c-TI-1XD" sceneMemberID="viewController"/>
+                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="98c-TI-1XD" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="rMn-uO-PfU"/>
+                </avPlayerViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fy8-2O-Qo4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="526" y="102"/>
+            <point key="canvasLocation" x="1005" y="906"/>
         </scene>
         <!--Ideo List Screen-->
         <scene sceneID="37n-6U-oBY">
@@ -85,7 +104,7 @@
                                                         <constraint firstAttribute="height" constant="25" id="21X-oe-s0V"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.1226408854" green="0.12917256360000001" blue="0.14172166589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -117,11 +136,53 @@
                     <navigationItem key="navigationItem" id="Tcr-Zz-bpc"/>
                     <connections>
                         <outlet property="tableView" destination="1M1-wP-N39" id="pLW-RV-1Ew"/>
+                        <segue destination="98c-TI-1XD" kind="show" identifier="playVideo" id="ke8-5u-9fg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPs-mq-qXD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2384.6153846153848" y="101.65876777251184"/>
+            <point key="canvasLocation" x="1005" y="102"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="ETX-IY-cQy">
+            <objects>
+                <viewController id="pdy-Dg-WS4" customClass="PhotoViewController" customModule="SimpleVideoCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uBT-tf-B5j">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="26j-bJ-vUr">
+                                <rect key="frame" x="75" y="96" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzu-lg-aep">
+                                <rect key="frame" x="97" y="435" width="218" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testButton:" destination="pdy-Dg-WS4" eventType="touchUpInside" id="hIV-8N-NiR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oA3-xe-b4w">
+                                <rect key="frame" x="119" y="615" width="175" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save VIdeo to Test Album"/>
+                                <connections>
+                                    <action selector="saveVideo:" destination="pdy-Dg-WS4" eventType="touchUpInside" id="tvb-mN-fQb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fx3-0k-F1H"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="26j-bJ-vUr" id="ece-Vk-7Jm"/>
+                        <segue destination="98c-TI-1XD" kind="show" identifier="play" id="MFz-8o-ArK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pfh-JM-bPN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2122" y="-638"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bvY-d1-mEy">
@@ -139,11 +200,16 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eaR-u8-9Xm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521.5384615384614" y="101.65876777251184"/>
+            <point key="canvasLocation" x="-172" y="-637"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gSc-i6-dEE"/>
+        <segue reference="ke8-5u-9fg"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="VideoCam" width="114" height="114"/>
+        <image name="photo" width="60" height="60"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

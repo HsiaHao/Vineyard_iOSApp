@@ -27,7 +27,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need to record voice</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Use Photo</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

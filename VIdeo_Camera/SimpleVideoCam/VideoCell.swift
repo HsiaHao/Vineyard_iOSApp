@@ -17,5 +17,12 @@ class VideoCell: UITableViewCell {
         videoImageView.image = video.image
         videoTitleLabel.text = video.title
     }
+    func setVideoTest(ind: String){
+        videoTitleLabel.text = ind
+    }
+    func setImg(img: UIImage){
+        videoImageView.image = img
+    }
+    
     
 }
