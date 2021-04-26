@@ -22,6 +22,9 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     
+    //timer
+    var timer = Timer()
+    
     let albumName = "Vineyard"
     let captureSession = AVCaptureSession()
     var currentDevice: AVCaptureDevice!
@@ -35,17 +38,43 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     var zone = 0
     var row = 0
     
+    var fileURL: URL?
+    var filename = "location.txt"
+    var writeString = ""
+    
     var pickerData:[[String]] = [["ZONE"],["1","2","3","4","5","6","7","8"],["ROW"],["1","2","3","4","5","6","7","8"]]
     @IBOutlet weak var videoListButton: UIButton!
     var isRecording = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fileURL = getDocumentsDirectory().appendingPathComponent(filename)
+        scheduledTimerWithTimeInterval()
         checkLocationServices()
         configure()
     }
     
-    // GPS functions
+    // MARK: - Update GPS Data with timer
+    func scheduledTimerWithTimeInterval(){
+        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateGPS), userInfo: nil, repeats: true)
+    }
+    @objc func updateGPS(){
+        NSLog("counting..")
+        let currentlocation = locationManager.location
+        let locationTxt = String(currentlocation!.coordinate.longitude) + " " + String(currentlocation!.coordinate.latitude)+";"
+        print(locationTxt)
+        if isRecording{
+            writeString += locationTxt
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -57,9 +86,11 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
             checkLocationAuthorization()
         } else {
             // Show alert letting the user know they have to turn this on.
+            print("location error:")
         }
     }
     func checkLocationAuthorization() {
+        print("check location auth")
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
@@ -77,11 +108,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    // MARK: - Camera functions
     private func configure() {
         // Preset the session for taking photo in full resolution
         captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
@@ -132,7 +159,6 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
                         // 4
                         do{
 //                            print("rate: ",frameRates.maxFrameDuration)
-//                            print("set rate to 240 fps")
                             try device.lockForConfiguration()
                             device.activeFormat = vFormat as AVCaptureDevice.Format
                             device.activeVideoMinFrameDuration = frameRates.minFrameDuration
@@ -182,11 +208,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
         })
     }
     
-    // MARK: - Action methods
-    
-    @IBAction func unwindToCamera(segue:UIStoryboardSegue) {
-        
-    }
+    // MARK: -  Camera Action methods
     @IBAction func toList(_ sender: UIButton) {
         performSegue(withIdentifier: "videoList", sender: nil)
     }
@@ -211,9 +233,29 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
             cameraButton.layer.removeAllAnimations()
             let titleItem =  AVMutableMetadataItem()
             titleItem.identifier = AVMetadataIdentifier.commonIdentifierTitle
-            
             videoFileOutput?.stopRecording()
             //print("outputdata: ", videoFileOutput.availableVideoCodecTypes)
+            
+            // finish recording and write gps data to txt file
+            do {
+                try writeString.write(to: fileURL!, atomically: true, encoding: .utf8)
+            } catch {
+                print(error.localizedDescription)
+            }
+            writeString = ""
+            //read string
+            print("Finish Recording and Location data:")
+            var readString = ""
+            do{
+                readString = try String(contentsOf: fileURL!)
+                for s in readString.split(separator: ";"){
+                    print("Coordinate: ", s)
+                }
+                print("")
+                
+            }catch let error as NSError{
+                print(error)
+            }
         }
     }
 
@@ -231,7 +273,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
 }
-
+// MARK: - AVCapture Delegate
 extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         guard error == nil else {
@@ -282,14 +324,10 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
                 albumChangeRequset!.addAssets([assetPlaceholder!]  as NSArray)
             }
         })
-       // print("assetAlbum:" ,assetAlbum)
-        
-        
-        //performSegue(withIdentifier: "playVideo", sender: outputFileURL)
         popUpPicker()
     }
     
-    //Mark: UIPickerView
+    //Mark: - UIPickerView
     func popUpPicker(){
         let vc = UIViewController()
         vc.preferredContentSize=CGSize(width: screenWidth, height: screenHeight)
@@ -335,25 +373,6 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
         return 60
     }
     
-//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
-//        if component==1 || component==3{
-//
-//            label.text = String(row)
-//            label.sizeToFit()
-//            return label
-//        }else{
-//            if component==0{
-//                label.text="ZONE"
-//            }else{
-//                label.text="ROW"
-//                print("ROW COMPONENT: ",component)
-//            }
-//        }
-//        let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
-//        label2.text = pickerData[component][row]
-//        return label2
-//    }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return "ZONE:" //header
@@ -378,10 +397,12 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
     }
 }
 
+// MARK: - GPS CLLOcation Delegate
 extension SimpleVideoCamController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        let loc = "Location Update: " + String(location.coordinate.latitude) + " " + String(location.coordinate.longitude)
 
     }
     
