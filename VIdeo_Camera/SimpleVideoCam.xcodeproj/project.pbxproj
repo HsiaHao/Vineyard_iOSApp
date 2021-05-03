@@ -19,6 +19,9 @@
 		F89236CD261E0AB900072CAA /* PhotoAlbumUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89236CC261E0AB900072CAA /* PhotoAlbumUtil.swift */; };
 		F89236D0261E18D300072CAA /* VIdeoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89236CF261E18D300072CAA /* VIdeoAsset.swift */; };
 		F89236D3261E1AC800072CAA /* StaticVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89236D2261E1AC800072CAA /* StaticVariables.swift */; };
+		F8F783E3263F0F67000AA51B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F783E2263F0F67000AA51B /* HomeViewController.swift */; };
+		F8F783EB263F1D1E000AA51B /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F783EA263F1D1E000AA51B /* PickerViewController.swift */; };
+		F8F783EF263F8519000AA51B /* SwipeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F783EE263F8519000AA51B /* SwipeCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		F89236CC261E0AB900072CAA /* PhotoAlbumUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumUtil.swift; sourceTree = "<group>"; };
 		F89236CF261E18D300072CAA /* VIdeoAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIdeoAsset.swift; sourceTree = "<group>"; };
 		F89236D2261E1AC800072CAA /* StaticVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticVariables.swift; sourceTree = "<group>"; };
+		F8F783E2263F0F67000AA51B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F8F783EA263F1D1E000AA51B /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		F8F783EE263F8519000AA51B /* SwipeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,16 +79,27 @@
 				F4F09E1F1DB4838C00026BB2 /* Assets.xcassets */,
 				F4F09E211DB4838C00026BB2 /* LaunchScreen.storyboard */,
 				F4F09E241DB4838C00026BB2 /* Info.plist */,
-				F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */,
-				F8115212261414C9004DE755 /* PhotoViewController.swift */,
+				F8F783E1263F0F20000AA51B /* Controller */,
 				F8115200260CE012004DE755 /* VideoCell.swift */,
-				F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */,
 				F89236CC261E0AB900072CAA /* PhotoAlbumUtil.swift */,
+				F8115212261414C9004DE755 /* PhotoViewController.swift */,
 				F8115204260CE14B004DE755 /* VIdeo.swift */,
 				F89236CF261E18D300072CAA /* VIdeoAsset.swift */,
 				F89236D2261E1AC800072CAA /* StaticVariables.swift */,
 			);
 			path = SimpleVideoCam;
+			sourceTree = "<group>";
+		};
+		F8F783E1263F0F20000AA51B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F8F783EA263F1D1E000AA51B /* PickerViewController.swift */,
+				F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */,
+				F8F783E2263F0F67000AA51B /* HomeViewController.swift */,
+				F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */,
+				F8F783EE263F8519000AA51B /* SwipeCollectionViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,8 +181,11 @@
 				F89236D0261E18D300072CAA /* VIdeoAsset.swift in Sources */,
 				F8115201260CE012004DE755 /* VideoCell.swift in Sources */,
 				F4F09E2B1DB483AE00026BB2 /* SimpleVideoCamController.swift in Sources */,
+				F8F783E3263F0F67000AA51B /* HomeViewController.swift in Sources */,
 				F81151FD260CDC74004DE755 /* VIdeoListScreen.swift in Sources */,
+				F8F783EB263F1D1E000AA51B /* PickerViewController.swift in Sources */,
 				F89236D3261E1AC800072CAA /* StaticVariables.swift in Sources */,
+				F8F783EF263F8519000AA51B /* SwipeCollectionViewController.swift in Sources */,
 				F89236CD261E0AB900072CAA /* PhotoAlbumUtil.swift in Sources */,
 				F8115213261414C9004DE755 /* PhotoViewController.swift in Sources */,
 			);

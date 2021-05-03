@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ojd-WU-iN8">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -25,42 +25,50 @@
                                 </constraints>
                                 <state key="normal" image="VideoCam"/>
                                 <connections>
-                                    <action selector="captureWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fsB-ZB-e6R"/>
+                                    <action selector="captureWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5QY-CS-1Xe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQ7-z4-6oM" userLabel="List_Button">
-                                <rect key="frame" x="333" y="40" width="45" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="LQT-3D-t8k"/>
-                                    <constraint firstAttribute="width" constant="45" id="RgO-mA-VRm"/>
-                                </constraints>
-                                <state key="normal" image="photo">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="toList:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pAf-kl-Yw6"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current State: Plot:  Variety: Row:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge4-CP-xK9">
+                                <rect key="frame" x="10" y="140" width="107" height="81.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wjf-d9-8Zf"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wjf-d9-8Zf" firstAttribute="bottom" secondItem="rZM-E1-c6K" secondAttribute="bottom" constant="46" id="BE1-Z1-bCS"/>
-                            <constraint firstItem="WQ7-z4-6oM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="CqZ-rq-TLJ"/>
-                            <constraint firstItem="wjf-d9-8Zf" firstAttribute="trailing" secondItem="WQ7-z4-6oM" secondAttribute="trailing" constant="12" id="TqK-3c-KFa"/>
+                            <constraint firstItem="Ge4-CP-xK9" firstAttribute="top" secondItem="wjf-d9-8Zf" secondAttribute="top" id="Xie-Gx-T3r"/>
+                            <constraint firstItem="Ge4-CP-xK9" firstAttribute="leading" secondItem="wjf-d9-8Zf" secondAttribute="leading" constant="10" id="htW-lD-rcY"/>
                             <constraint firstItem="rZM-E1-c6K" firstAttribute="centerX" secondItem="wjf-d9-8Zf" secondAttribute="centerX" id="sld-tC-vnO"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hbM-XE-Ar1">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="2qm-H7-iLB">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="MW2-kZ-LvB">
+                                <rect key="frame" x="288" y="7" width="86" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="listButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zUL-bQ-L2C"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <segue destination="DAq-uK-nY5" kind="show" identifier="toList" id="ajb-qG-hel"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="cameraButton" destination="rZM-E1-c6K" id="LPW-J2-SuD"/>
-                        <outlet property="videoListButton" destination="WQ7-z4-6oM" id="xIt-ay-KN0"/>
+                        <outlet property="stateLabel" destination="Ge4-CP-xK9" id="8BW-ts-ucR"/>
+                        <outlet property="videoListButton" destination="rZM-E1-c6K" id="bh3-FH-UyU"/>
                         <segue destination="98c-TI-1XD" kind="presentation" identifier="playVideo" id="VtR-HG-5I1"/>
-                        <segue destination="DAq-uK-nY5" kind="show" identifier="videoList" id="zoy-7Y-vGM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-172.30769230769229" y="101.65876777251184"/>
+            <point key="canvasLocation" x="175.38461538461539" y="108.76777251184834"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="gpP-zR-6KU">
@@ -75,13 +83,13 @@
         <!--Ideo List Screen-->
         <scene sceneID="37n-6U-oBY">
             <objects>
-                <viewController id="DAq-uK-nY5" customClass="VIdeoListScreen" customModule="SimpleVideoCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="DAq-uK-nY5" customClass="VIdeoListScreen" customModule="SimpleVideoCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kOG-0f-Tgf">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-wP-N39">
-                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoCell" id="IBd-V8-R8e" customClass="VideoCell" customModule="SimpleVideoCam" customModuleProvider="target">
@@ -133,7 +141,9 @@
                             <constraint firstItem="AZM-HM-mOh" firstAttribute="bottom" secondItem="1M1-wP-N39" secondAttribute="bottom" id="vNd-5s-x0n"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Tcr-Zz-bpc"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ffH-Qr-w16"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="1M1-wP-N39" id="pLW-RV-1Ew"/>
                         <segue destination="98c-TI-1XD" kind="show" identifier="playVideo" id="ke8-5u-9fg"/>
@@ -141,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPs-mq-qXD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1005" y="102"/>
+            <point key="canvasLocation" x="-783" y="109"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="ETX-IY-cQy">
@@ -182,34 +192,168 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pfh-JM-bPN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2122" y="-638"/>
+            <point key="canvasLocation" x="3050.7692307692305" y="-638.38862559241704"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="lYC-Rt-hDv">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="TT2-mQ-TS1" customClass="HomeViewController" customModule="SimpleVideoCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jCu-iW-qHm">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po8-ke-Zlv">
+                                <rect key="frame" x="147.66666666666666" y="404" width="95" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="New Video">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="newVIdeoPressed:" destination="TT2-mQ-TS1" eventType="touchUpInside" id="Z0c-6a-31Y"/>
+                                    <segue destination="O2o-vt-s2X" kind="show" identifier="pickerView" id="FfP-ZB-bVX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbK-vU-afY" userLabel="View Video">
+                                <rect key="frame" x="146" y="460" width="98" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="View Video"/>
+                                <connections>
+                                    <action selector="showVideoList:" destination="TT2-mQ-TS1" eventType="touchUpInside" id="uri-Zh-Ulf"/>
+                                    <segue destination="DAq-uK-nY5" kind="show" id="2z3-eX-URw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owo-YP-P0Y">
+                                <rect key="frame" x="162.66666666666666" y="516" width="65" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Tutorial">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showTutorial:" destination="TT2-mQ-TS1" eventType="touchUpInside" id="4rc-lK-RDC"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cornell-1" translatesAutoresizingMaskIntoConstraints="NO" id="4ym-f5-2rN">
+                                <rect key="frame" x="88.666666666666671" y="180" width="212.66666666666663" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4ym-f5-2rN" secondAttribute="height" multiplier="301:283" id="C4p-gc-dnL"/>
+                                    <constraint firstAttribute="height" constant="200" id="OAU-mC-Te5"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ss5-k5-PF1"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstItem="Po8-ke-Zlv" firstAttribute="centerY" secondItem="jCu-iW-qHm" secondAttribute="centerY" id="7Xg-4K-hjE"/>
+                            <constraint firstItem="Po8-ke-Zlv" firstAttribute="centerX" secondItem="jCu-iW-qHm" secondAttribute="centerX" id="I2J-wL-MZP"/>
+                            <constraint firstItem="4ym-f5-2rN" firstAttribute="top" secondItem="Ss5-k5-PF1" secondAttribute="top" constant="40" id="N8S-oZ-o4T"/>
+                            <constraint firstItem="Owo-YP-P0Y" firstAttribute="top" secondItem="MbK-vU-afY" secondAttribute="bottom" constant="20" id="OvC-bc-IfJ"/>
+                            <constraint firstItem="Owo-YP-P0Y" firstAttribute="centerX" secondItem="jCu-iW-qHm" secondAttribute="centerX" id="P7U-G5-ky8"/>
+                            <constraint firstItem="MbK-vU-afY" firstAttribute="top" secondItem="Po8-ke-Zlv" secondAttribute="bottom" constant="20" id="jhy-6O-2XG"/>
+                            <constraint firstItem="4ym-f5-2rN" firstAttribute="centerX" secondItem="jCu-iW-qHm" secondAttribute="centerX" id="nDp-Cl-vkP"/>
+                            <constraint firstItem="MbK-vU-afY" firstAttribute="centerX" secondItem="jCu-iW-qHm" secondAttribute="centerX" id="npf-PJ-ZWr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nko-KT-T3r">
+                        <barButtonItem key="backBarButtonItem" title="Home" id="vz4-Wz-xnq"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jdo-3I-c5I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-782" y="-638"/>
+        </scene>
+        <!--Picker View Controller-->
+        <scene sceneID="CzV-55-6O0">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="O2o-vt-s2X" customClass="PickerViewController" customModule="SimpleVideoCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3p7-KC-Bvb">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ar1-iX-unE" userLabel="PlotPicker">
+                                <rect key="frame" x="35" y="160" width="320" height="150"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="UEY-pD-gA4"/>
+                                </constraints>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkA-HV-MRt" userLabel="VarietyPicker">
+                                <rect key="frame" x="35" y="315" width="320" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="lrh-S8-12T"/>
+                                </constraints>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EvL-Xx-kUQ" userLabel="RowPicker">
+                                <rect key="frame" x="35" y="470" width="320" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="LgP-kc-SqU"/>
+                                </constraints>
+                            </pickerView>
+                            <button opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWd-u1-EXW">
+                                <rect key="frame" x="105.33333333333333" y="684" width="179.66666666666669" height="26"/>
+                                <color key="backgroundColor" red="0.25475499033927917" green="0.5238872766494751" blue="0.33094710111618042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Start a new video" image="timelapse" catalog="system"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="rzw-f2-2XH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="p9k-AO-ctZ"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstItem="ar1-iX-unE" firstAttribute="centerX" secondItem="3p7-KC-Bvb" secondAttribute="centerX" id="BgN-AI-Udl"/>
+                            <constraint firstItem="p9k-AO-ctZ" firstAttribute="bottom" secondItem="XWd-u1-EXW" secondAttribute="bottom" constant="100" id="JXm-Gg-DhX"/>
+                            <constraint firstItem="ar1-iX-unE" firstAttribute="top" secondItem="p9k-AO-ctZ" secondAttribute="top" constant="20" id="PEW-Ze-2Le"/>
+                            <constraint firstItem="EvL-Xx-kUQ" firstAttribute="centerX" secondItem="3p7-KC-Bvb" secondAttribute="centerX" id="RrZ-Y3-wPd"/>
+                            <constraint firstItem="XWd-u1-EXW" firstAttribute="centerX" secondItem="3p7-KC-Bvb" secondAttribute="centerX" id="VbS-V2-aG2"/>
+                            <constraint firstItem="fkA-HV-MRt" firstAttribute="top" secondItem="ar1-iX-unE" secondAttribute="bottom" constant="5" id="mAk-D6-DSS"/>
+                            <constraint firstItem="EvL-Xx-kUQ" firstAttribute="top" secondItem="fkA-HV-MRt" secondAttribute="bottom" constant="5" id="oye-vM-pAQ"/>
+                            <constraint firstItem="fkA-HV-MRt" firstAttribute="centerX" secondItem="3p7-KC-Bvb" secondAttribute="centerX" id="yEv-es-HIT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="sgX-aH-R1T">
+                        <barButtonItem key="backBarButtonItem" title="new video" id="MnK-SQ-iTP"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="plotPicker" destination="ar1-iX-unE" id="m5W-bT-OW2"/>
+                        <outlet property="rowPicker" destination="EvL-Xx-kUQ" id="Ucb-89-Dlu"/>
+                        <outlet property="varietyPicker" destination="fkA-HV-MRt" id="EPg-S7-nUL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FgN-uL-0H3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="-638.38862559241704"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="bvY-d1-mEy">
+        <scene sceneID="eeu-MN-zQf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="j7G-k6-PNZ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ojd-WU-iN8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="meW-S0-2dJ">
-                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="XT2-Zv-fdC">
+                        <rect key="frame" x="0.0" y="44" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="DAq-uK-nY5" kind="relationship" relationship="rootViewController" id="gSc-i6-dEE"/>
+                        <segue destination="TT2-mQ-TS1" kind="relationship" relationship="rootViewController" id="ZvX-Jq-dMo"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eaR-u8-9Xm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z0c-CD-mO7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-172" y="-637"/>
+            <point key="canvasLocation" x="-1649.2307692307693" y="-638.38862559241704"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gSc-i6-dEE"/>
-        <segue reference="ke8-5u-9fg"/>
+        <segue reference="ajb-qG-hel"/>
+        <segue reference="VtR-HG-5I1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VideoCam" width="114" height="114"/>
-        <image name="photo" width="60" height="60"/>
+        <image name="cornell-1" width="487" height="487"/>
+        <image name="timelapse" catalog="system" width="128" height="122"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
