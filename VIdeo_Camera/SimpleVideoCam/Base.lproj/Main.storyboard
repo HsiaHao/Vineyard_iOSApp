@@ -49,7 +49,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="MW2-kZ-LvB">
                                 <rect key="frame" x="288" y="7" width="86" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Album"/>
                                 <connections>
                                     <action selector="listButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zUL-bQ-L2C"/>
                                 </connections>

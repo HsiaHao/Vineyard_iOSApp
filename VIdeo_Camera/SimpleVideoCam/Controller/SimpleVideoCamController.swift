@@ -48,6 +48,10 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     var start_time = DispatchTime.now()
     var end_time = DispatchTime.now()
     
+    // state text
+    var variety = ""
+    var plot = ""
+    var row_in_yard = ""
     
     var pickerData:[[String]] = [["ZONE"],["1","2","3","4","5","6","7","8"],["ROW"],["1","2","3","4","5","6","7","8"]]
     @IBOutlet weak var videoListButton: UIButton!
@@ -56,11 +60,17 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("send data: ",variety, plot, row_in_yard)
+        setStateLabel()
         fileURL = getDocumentsDirectory().appendingPathComponent(filename)
         scheduledTimerWithTimeInterval()
         checkLocationServices()
         configure()
+    }
+    
+    func setStateLabel(){
+        let stateText = "Current State"+"\nPlot: "+plot+"\nVariety: "+variety+"\nRow: "+row_in_yard
+        stateLabel.text = stateText
     }
     
     // MARK: - Shake Detection
@@ -376,10 +386,10 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
             }
         })
         let testAsset = AVAsset(url: outputFileURL)
-        guard let exportSession = AVAssetExportSession(asset: testAsset, presetName: AVAssetExportPresetPassthrough) else { return }
+//        guard let exportSession = AVAssetExportSession(asset: testAsset, presetName: AVAssetExportPresetPassthrough) else { return }
 
-        var mutableMetadata = exportSession.asset.metadata
-        let metadataCopy = mutableMetadata
+//        var mutableMetadata = exportSession.asset.metadata
+//        let metadataCopy = mutableMetadata
         // assetalbum -> vinyard album
         // save the video to vineyard album
         PHPhotoLibrary.shared().performChanges({

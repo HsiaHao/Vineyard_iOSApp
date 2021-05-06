@@ -18,6 +18,11 @@ class PickerViewController: UIViewController {
     var varietyPickerData: [String] = []
     var rowPickerData: [String] = []
     
+    var curr_plot = "1"
+    var curr_variety = "New York Muscart"
+    var curr_row = "1"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
@@ -59,6 +64,15 @@ class PickerViewController: UIViewController {
         self.rowPicker.dataSource = self
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is SimpleVideoCamController{
+            let vc = segue.destination as? SimpleVideoCamController
+            vc?.row_in_yard = curr_row
+            vc?.variety = curr_variety
+            vc?.plot = curr_plot
+        }
+    }
 
 }
 
@@ -97,18 +111,21 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource{
             if component==0{
                 return "Plot:"
             }else{
+                curr_plot = plotPickerData[row]
                 return plotPickerData[row]
             }
         }else if pickerView.tag==2{
             if component==0{
                 return "Variety:"
             }else{
+                curr_variety = varietyPickerData[row]
                 return varietyPickerData[row]
             }
         }else{
             if component==0{
                 return "Row:"
             }else{
+                curr_row = rowPickerData[row]
                 return rowPickerData[row]
             }
         }
