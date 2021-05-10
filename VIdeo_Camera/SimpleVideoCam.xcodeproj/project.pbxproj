@@ -16,6 +16,10 @@
 		F8115201260CE012004DE755 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8115200260CE012004DE755 /* VideoCell.swift */; };
 		F8115205260CE14B004DE755 /* VIdeo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8115204260CE14B004DE755 /* VIdeo.swift */; };
 		F8115213261414C9004DE755 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8115212261414C9004DE755 /* PhotoViewController.swift */; };
+		F86DE44D264500B7003C4A52 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F86DE44C264500B7003C4A52 /* Onboarding.storyboard */; };
+		F86DE45126450140003C4A52 /* WalkthroughContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86DE45026450140003C4A52 /* WalkthroughContentViewController.swift */; };
+		F86DE45426450186003C4A52 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86DE45326450186003C4A52 /* WalkthroughViewController.swift */; };
+		F86DE457264501D0003C4A52 /* WalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86DE456264501D0003C4A52 /* WalkthroughPageViewController.swift */; };
 		F89236CD261E0AB900072CAA /* PhotoAlbumUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89236CC261E0AB900072CAA /* PhotoAlbumUtil.swift */; };
 		F89236D0261E18D300072CAA /* VIdeoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89236CF261E18D300072CAA /* VIdeoAsset.swift */; };
 		F89236D3261E1AC800072CAA /* StaticVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89236D2261E1AC800072CAA /* StaticVariables.swift */; };
@@ -36,6 +40,10 @@
 		F8115200260CE012004DE755 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		F8115204260CE14B004DE755 /* VIdeo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIdeo.swift; sourceTree = "<group>"; };
 		F8115212261414C9004DE755 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		F86DE44C264500B7003C4A52 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		F86DE45026450140003C4A52 /* WalkthroughContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughContentViewController.swift; sourceTree = "<group>"; };
+		F86DE45326450186003C4A52 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
+		F86DE456264501D0003C4A52 /* WalkthroughPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughPageViewController.swift; sourceTree = "<group>"; };
 		F89236CC261E0AB900072CAA /* PhotoAlbumUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumUtil.swift; sourceTree = "<group>"; };
 		F89236CF261E18D300072CAA /* VIdeoAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIdeoAsset.swift; sourceTree = "<group>"; };
 		F89236D2261E1AC800072CAA /* StaticVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticVariables.swift; sourceTree = "<group>"; };
@@ -75,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				F4F09E181DB4838C00026BB2 /* AppDelegate.swift */,
-				F4F09E1C1DB4838C00026BB2 /* Main.storyboard */,
+				F86DE44F264500BF003C4A52 /* StoryBoard */,
 				F4F09E1F1DB4838C00026BB2 /* Assets.xcassets */,
 				F4F09E211DB4838C00026BB2 /* LaunchScreen.storyboard */,
 				F4F09E241DB4838C00026BB2 /* Info.plist */,
@@ -90,6 +98,25 @@
 			path = SimpleVideoCam;
 			sourceTree = "<group>";
 		};
+		F86DE44F264500BF003C4A52 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				F4F09E1C1DB4838C00026BB2 /* Main.storyboard */,
+				F86DE44C264500B7003C4A52 /* Onboarding.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		F8B0F843264838EE00CF72C6 /* UIPageView */ = {
+			isa = PBXGroup;
+			children = (
+				F86DE456264501D0003C4A52 /* WalkthroughPageViewController.swift */,
+				F86DE45026450140003C4A52 /* WalkthroughContentViewController.swift */,
+				F86DE45326450186003C4A52 /* WalkthroughViewController.swift */,
+			);
+			path = UIPageView;
+			sourceTree = "<group>";
+		};
 		F8F783E1263F0F20000AA51B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +125,7 @@
 				F8F783E2263F0F67000AA51B /* HomeViewController.swift */,
 				F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */,
 				F8F783EE263F8519000AA51B /* SwipeCollectionViewController.swift */,
+				F8B0F843264838EE00CF72C6 /* UIPageView */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -166,6 +194,7 @@
 				F4F09E231DB4838C00026BB2 /* LaunchScreen.storyboard in Resources */,
 				F4F09E201DB4838C00026BB2 /* Assets.xcassets in Resources */,
 				F4F09E1E1DB4838C00026BB2 /* Main.storyboard in Resources */,
+				F86DE44D264500B7003C4A52 /* Onboarding.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +215,9 @@
 				F8F783EB263F1D1E000AA51B /* PickerViewController.swift in Sources */,
 				F89236D3261E1AC800072CAA /* StaticVariables.swift in Sources */,
 				F8F783EF263F8519000AA51B /* SwipeCollectionViewController.swift in Sources */,
+				F86DE45426450186003C4A52 /* WalkthroughViewController.swift in Sources */,
+				F86DE45126450140003C4A52 /* WalkthroughContentViewController.swift in Sources */,
+				F86DE457264501D0003C4A52 /* WalkthroughPageViewController.swift in Sources */,
 				F89236CD261E0AB900072CAA /* PhotoAlbumUtil.swift in Sources */,
 				F8115213261414C9004DE755 /* PhotoViewController.swift in Sources */,
 			);

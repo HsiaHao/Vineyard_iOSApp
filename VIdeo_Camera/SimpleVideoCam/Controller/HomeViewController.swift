@@ -24,6 +24,11 @@ class HomeViewController: UIViewController {
     }
     @IBAction func showTutorial(_ sender: UIButton) {
         print("tutorial")
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        if let walkthroughViewController = storyboard.instantiateViewController(identifier: "WalkthroughViewController") as? WalkthroughViewController{
+            present(walkthroughViewController, animated: true, completion: nil)
+        }
+        
     }
     
     /*
