@@ -14,6 +14,8 @@ class PickerViewController: UIViewController {
     @IBOutlet weak var varietyPicker: UIPickerView!
     @IBOutlet weak var rowPicker: UIPickerView!
     
+    @IBOutlet weak var newVideoButton: UIButton!
+    
     var plotPickerData: [String] = []
     var varietyPickerData: [String] = []
     var rowPickerData: [String] = []
@@ -25,6 +27,8 @@ class PickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("picker view loaded")
+        setVideoBUtton()
         overrideUserInterfaceStyle = .light
         
         title = "Vineyard"
@@ -41,12 +45,20 @@ class PickerViewController: UIViewController {
         setPickerData()
     }
     
+    func setVideoBUtton(){
+        newVideoButton.layer.cornerRadius = 8
+        newVideoButton.layer.masksToBounds  = true
+        print("test length:",newVideoButton.intrinsicContentSize.width)
+        newVideoButton.setTitle("Start a New Video", for: .normal)
+        newVideoButton.sizeToFit()
+    }
+    
     func setPickerData(){
-        for i in 1...30{
+        for i in 1...100{
             plotPickerData.append(String(i))
         }
         
-        for i in 1...20{
+        for i in 1...100{
             rowPickerData.append(String(i))
         }
         

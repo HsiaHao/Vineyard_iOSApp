@@ -19,6 +19,8 @@ class WalkthroughViewController: UIViewController {
     
     var walkthroughPageViewController: WalkthroughPageViewController?
     
+    var numberOfPages = 4
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,9 +41,9 @@ class WalkthroughViewController: UIViewController {
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         if let index = walkthroughPageViewController?.currentIndex {
                 switch index {
-                case 0...1:
+                case 0...numberOfPages-2:
                     walkthroughPageViewController?.forwardPage()
-                case 2:
+                case numberOfPages-1:
                     dismiss(animated: true, completion: nil)
                 default: break
                 }
@@ -52,10 +54,10 @@ class WalkthroughViewController: UIViewController {
     func updateUI(){
         if let index = walkthroughPageViewController?.currentIndex {
                 switch index {
-                case 0...1:
+                case 0...numberOfPages-2:
                     nextButton.setTitle("NEXT", for: .normal)
                     skipButton.isHidden = false
-                case 2:
+                case numberOfPages-1:
                     nextButton.setTitle("GET STARTED", for: .normal)
                     skipButton.isHidden = true
                 default: break

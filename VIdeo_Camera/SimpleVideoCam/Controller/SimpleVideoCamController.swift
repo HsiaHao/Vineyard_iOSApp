@@ -41,7 +41,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     var filename = "location.txt"
     var writeString = ""
     
-    //shake per nimute
+    //shake per minute
     let shake_max = 3
     let timeInterval = 10.0
     var shake_count = 0
@@ -53,10 +53,16 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     var plot = ""
     var row_in_yard = ""
     
+    //Userdefault
+    let defaults = UserDefaults.standard
+    
     var pickerData:[[String]] = [["ZONE"],["1","2","3","4","5","6","7","8"],["ROW"],["1","2","3","4","5","6","7","8"]]
     @IBOutlet weak var videoListButton: UIButton!
     @IBOutlet weak var stateLabel: UILabel!
     var isRecording = false
+    
+    //PHAsset ID
+    var localId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,7 +196,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         currentDevice = device
-        print("format: ",currentDevice.formats)
+        //print("format: ",currentDevice.formats)
         
         // Get the input data source
         guard let captureDeviceInput = try? AVCaptureDeviceInput(device: currentDevice) else {
@@ -240,7 +246,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
                     }
                 }
             }
-        print("framerate: ", device.activeFormat)
+        print("set the devide framerate to :", device.activeVideoMinFrameDuration)
         captureSession.startRunning()
     }
     // Create Album
@@ -283,6 +289,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func capture(sender: AnyObject) {
+        // start recording
         if !isRecording {
             isRecording = true
             
@@ -294,6 +301,7 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
             let outputFileURL = URL(fileURLWithPath: outputPath)
             videoFileOutput?.startRecording(to: outputFileURL, recordingDelegate: self)
         } else {
+            // finish recording
             isRecording = false
             
             UIView.animate(withDuration: 0.5, delay: 1.0, options: [], animations: { () -> Void in
@@ -307,8 +315,11 @@ class SimpleVideoCamController: UIViewController, UIPickerViewDelegate, UIPicker
             item.value = "123" as NSString
 
             videoFileOutput?.stopRecording()
+            
             videoFileOutput.metadata?.append(item)
+            print("meta:", videoFileOutput.metadata)
             print("check metadata: ", item)
+            
             // finish recording and write gps data to txt file
             do {
                 try writeString.write(to: fileURL!, atomically: true, encoding: .utf8)
@@ -353,9 +364,10 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
             print(error ?? "")
             return
         }
-        //Save to album
-        //UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-        // check if an album exist. If not create one
+        // Save to album
+        // UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+        
+        // check if the vineyard album exist. If not create one
         var exist_album = false
         userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
         let number_of_album = userCollections?.count
@@ -367,9 +379,9 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
         }
         if exist_album==false{
             createPhotoLibraryAlbum(name: albumName)
-            print("create new test album...")
+            print("create a new album...")
         }else{
-            print("the album exists...")
+            print("the vineyard album exists.")
         }
         
         //save the video to the vineyard album
@@ -385,23 +397,44 @@ extension SimpleVideoCamController: AVCaptureFileOutputRecordingDelegate {
                 stop.initialize(to: true)
             }
         })
-        let testAsset = AVAsset(url: outputFileURL)
 //        guard let exportSession = AVAssetExportSession(asset: testAsset, presetName: AVAssetExportPresetPassthrough) else { return }
 
 //        var mutableMetadata = exportSession.asset.metadata
 //        let metadataCopy = mutableMetadata
         // assetalbum -> vinyard album
         // save the video to vineyard album
+        
         PHPhotoLibrary.shared().performChanges({
-            //添加的相机胶卷
             let result = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
-            //是否要添加到相簿
+            //print(result?.creationDate)
+            //self.defaults.setValue("test", forKey: "123")
             if !self.albumName.isEmpty {
                 let assetPlaceholder = result?.placeholderForCreatedAsset
                 let albumChangeRequset = PHAssetCollectionChangeRequest(for:assetAlbum!)
                 albumChangeRequset!.addAssets([assetPlaceholder!]  as NSArray)
+                self.localId = assetPlaceholder?.localIdentifier
+                print("date: ", Date())
             }
-        })
+        }) { sucess, error in
+            if !sucess{print("save video error....")}
+            else{
+                print("save video sucessful")
+                
+                let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [self.localId!], options: nil)
+                let asset = assetResult[0]
+                let options = PHContentEditingInputRequestOptions()
+                options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData)
+                    ->Bool in
+                    return true
+                }
+                let format = DateFormatter()
+                format.timeStyle = .medium
+                let date = format.string(from: asset.creationDate!)
+                print("create date", date)
+                self.defaults.setValue([self.variety, self.plot, self.row_in_yard], forKey: date)
+                //print("create date:",asset.creationDate, "to", date)
+            }
+        }
         //popUpPicker()
         finishRecordAlert()
     }

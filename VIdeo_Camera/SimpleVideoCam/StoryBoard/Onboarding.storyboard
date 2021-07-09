@@ -56,8 +56,8 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="aCD-1W-K3e">
-                                        <rect key="frame" x="146" y="245" width="123" height="28"/>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="aCD-1W-K3e">
+                                        <rect key="frame" x="112" y="245" width="190" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="pageIndicatorTintColor" systemColor="systemGray4Color"/>
                                         <color key="currentPageIndicatorTintColor" systemColor="systemIndigoColor"/>
@@ -95,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVm-DU-t5o" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-516" y="86"/>
+            <point key="canvasLocation" x="-517.39130434782612" y="85.714285714285708"/>
         </scene>
         <!--Walkthrough Page View Controller-->
         <scene sceneID="7kl-ZL-jX8">
@@ -103,7 +103,7 @@
                 <pageViewController storyboardIdentifier="WalkthroughPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6cg-6u-iol" customClass="WalkthroughPageViewController" customModule="SimpleVideoCam" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngE-mw-Urz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="299" y="86"/>
+            <point key="canvasLocation" x="259" y="58"/>
         </scene>
         <!--Walkthrough Content View Controller-->
         <scene sceneID="UD3-ZP-gMn">
@@ -160,7 +160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asH-UG-OoR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="86"/>
+            <point key="canvasLocation" x="958" y="69"/>
         </scene>
     </scenes>
     <resources>

@@ -11,14 +11,18 @@ import UIKit
 class VideoCell: UITableViewCell {
 
     @IBOutlet weak var videoImageView: UIImageView!
-    @IBOutlet weak var videoTitleLabel: UILabel!
+    
+    @IBOutlet weak var varietyLabel: UILabel!
+    @IBOutlet weak var plotLabel: UILabel!
+    @IBOutlet weak var rowLabel: UILabel!
     
     func setVideo(video: Video){
         videoImageView.image = video.image
-        videoTitleLabel.text = video.title
     }
-    func setVideoTest(ind: String){
-        videoTitleLabel.text = ind
+    func setVideoTest(variety: String, plot: String, row: String){
+        varietyLabel.text = variety
+        plotLabel.text = "plot: "+plot
+        rowLabel.text = "row: "+row
     }
     func setImg(img: UIImage){
         videoImageView.image = img

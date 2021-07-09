@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ojd-WU-iN8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ojd-WU-iN8">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -93,7 +93,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VideoCell" id="IBd-V8-R8e" customClass="VideoCell" customModule="SimpleVideoCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="390" height="90"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IBd-V8-R8e" id="Ti3-LG-807">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="90"/>
@@ -106,27 +106,43 @@
                                                         <constraint firstAttribute="width" secondItem="eYB-jo-aH2" secondAttribute="height" multiplier="16:9" id="wUw-lF-y2q"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="I7N-O6-HTF">
-                                                    <rect key="frame" x="164" y="32.666666666666664" width="194" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="21X-oe-s0V"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1vY-Rv-jFC">
+                                                    <rect key="frame" x="164" y="10" width="41.333333333333343" height="60"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="I7N-O6-HTF" userLabel="varietyLabel">
+                                                            <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3x-hj-5IN" userLabel="plotLabel">
+                                                            <rect key="frame" x="0.0" y="20" width="41.333333333333336" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybl-fC-oP6" userLabel="rowLabel">
+                                                            <rect key="frame" x="0.0" y="40" width="41.333333333333336" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="eYB-jo-aH2" firstAttribute="centerY" secondItem="Ti3-LG-807" secondAttribute="centerY" id="CQm-yx-qb9"/>
+                                                <constraint firstItem="1vY-Rv-jFC" firstAttribute="leading" secondItem="eYB-jo-aH2" secondAttribute="trailing" constant="12" id="Gjy-DD-iyX"/>
                                                 <constraint firstItem="eYB-jo-aH2" firstAttribute="leading" secondItem="Ti3-LG-807" secondAttribute="leading" constant="12" id="JHx-KM-dq1"/>
-                                                <constraint firstItem="I7N-O6-HTF" firstAttribute="leading" secondItem="eYB-jo-aH2" secondAttribute="trailing" constant="12" id="XRm-GE-ebY"/>
-                                                <constraint firstItem="I7N-O6-HTF" firstAttribute="centerY" secondItem="Ti3-LG-807" secondAttribute="centerY" id="ilz-cL-GHe"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="I7N-O6-HTF" secondAttribute="trailing" constant="12" id="uqy-DR-URM"/>
+                                                <constraint firstItem="1vY-Rv-jFC" firstAttribute="top" secondItem="Ti3-LG-807" secondAttribute="top" constant="10" id="ZAF-wY-a2W"/>
+                                                <constraint firstAttribute="bottom" secondItem="1vY-Rv-jFC" secondAttribute="bottom" constant="20" id="tkL-80-aE0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="plotLabel" destination="j3x-hj-5IN" id="gwa-ul-8Xl"/>
+                                            <outlet property="rowLabel" destination="ybl-fC-oP6" id="Xye-n9-YzX"/>
+                                            <outlet property="varietyLabel" destination="I7N-O6-HTF" id="veF-t7-Ja9"/>
                                             <outlet property="videoImageView" destination="eYB-jo-aH2" id="hoz-ZZ-ucM"/>
-                                            <outlet property="videoTitleLabel" destination="I7N-O6-HTF" id="zlU-6X-A9q"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -259,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdo-3I-c5I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-782" y="-638"/>
+            <point key="canvasLocation" x="-654" y="-611"/>
         </scene>
         <!--Picker View Controller-->
         <scene sceneID="CzV-55-6O0">
@@ -289,10 +305,10 @@
                                 </constraints>
                             </pickerView>
                             <button opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWd-u1-EXW">
-                                <rect key="frame" x="105.33333333333333" y="684" width="179.66666666666669" height="26"/>
-                                <color key="backgroundColor" red="0.25475499033927917" green="0.5238872766494751" blue="0.33094710111618042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="116" y="672" width="158" height="38"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Start a new video" image="timelapse" catalog="system"/>
+                                <state key="normal" title="Start a new video"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="rzw-f2-2XH"/>
                                 </connections>
@@ -315,6 +331,7 @@
                         <barButtonItem key="backBarButtonItem" title="new video" id="MnK-SQ-iTP"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="newVideoButton" destination="XWd-u1-EXW" id="7sT-9C-q5d"/>
                         <outlet property="plotPicker" destination="ar1-iX-unE" id="m5W-bT-OW2"/>
                         <outlet property="rowPicker" destination="EvL-Xx-kUQ" id="Ucb-89-Dlu"/>
                         <outlet property="varietyPicker" destination="fkA-HV-MRt" id="EPg-S7-nUL"/>
@@ -344,18 +361,20 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ajb-qG-hel"/>
-        <segue reference="VtR-HG-5I1"/>
+        <segue reference="2z3-eX-URw"/>
+        <segue reference="ke8-5u-9fg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="VideoCam" width="114" height="114"/>
         <image name="cornell-1" width="487" height="487"/>
-        <image name="timelapse" catalog="system" width="128" height="122"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

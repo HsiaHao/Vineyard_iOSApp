@@ -120,10 +120,10 @@
 		F8F783E1263F0F20000AA51B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F8F783EA263F1D1E000AA51B /* PickerViewController.swift */,
-				F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */,
 				F8F783E2263F0F67000AA51B /* HomeViewController.swift */,
+				F8F783EA263F1D1E000AA51B /* PickerViewController.swift */,
 				F4F09E2A1DB483AE00026BB2 /* SimpleVideoCamController.swift */,
+				F81151FC260CDC74004DE755 /* VIdeoListScreen.swift */,
 				F8F783EE263F8519000AA51B /* SwipeCollectionViewController.swift */,
 				F8B0F843264838EE00CF72C6 /* UIPageView */,
 			);

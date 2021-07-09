@@ -15,12 +15,13 @@ protocol WalkthroughPageViewControllerDelegate: AnyObject {
 class WalkthroughPageViewController: UIPageViewController {
     
     var pageHeadings = ["CREATE YOUR OWN FOOD GUIDE", "SHOW YOU THE LOCATION",
-    "DISCOVER GREAT RESTAURANTS"]
-    var pageImages = ["onboarding-1", "onboarding-2", "onboarding-3"]
+    "DISCOVER GREAT RESTAURANTS","TEST-4"]
+    var pageImages = ["onboarding-1", "onboarding-2", "onboarding-3", "onboarding-4"]
     
     var pageSubHeadings = ["Pin your favorite restaurants and create your own food guide",
                            "Search and locate your favourite restaurant on Maps",
-                           "Find restaurants shared by your friends and other foodies"]
+                           "Find restaurants shared by your friends and other foodies",
+                           "Start the app"]
     
     var currentIndex = 0
     

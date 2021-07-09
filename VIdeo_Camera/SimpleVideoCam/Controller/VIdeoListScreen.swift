@@ -20,7 +20,7 @@ class VIdeoListScreen: UIViewController {
     var imageManager:PHCachingImageManager!
     var numberOfVideos = 0
     var video_asset: [AVAsset] = []
-    
+    var defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -66,8 +66,7 @@ class VIdeoListScreen: UIViewController {
        
         
         //find the vineyard album
-        let list = PHAssetCollection
-            .fetchAssetCollections(with: .album, subtype: .any, options: nil)
+        let list = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
         list.enumerateObjects({ (album, index, stop) in
             let assetCollection = album
             if "Vineyard" == assetCollection.localizedTitle {
@@ -75,7 +74,7 @@ class VIdeoListScreen: UIViewController {
                 stop.initialize(to: true)
             }
         })
-        print("asset album: ", assetAlbum)
+        //print("asset album: ", assetAlbum)
         // get vineyard album in assetAlbun
         
         let resultsOptions = PHFetchOptions()
@@ -130,11 +129,24 @@ extension VIdeoListScreen: UITableViewDataSource, UITableViewDelegate{
 //       let size = CGSize(width: 30, height: 20)
 //       cell.setVideo(video: video)
         let videoAsset = assetsFetchResults[indexPath.row]
-        print("description: ", videoAsset)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        let dateKey = formatter.string(from: videoAsset.creationDate!)
+        // infos : variety. plot, row
+        var infos = [String]()
+        print("datekey:",dateKey)
+        if defaults.object(forKey: dateKey) != nil{
+            //print("find date video:", defaults.object(forKey: dateKey))
+            let array = defaults.object(forKey: dateKey)! as? [String] ?? [String]()
+            infos.append(array[0])
+            infos.append(array[1])
+            infos.append(array[2])
+        }
+        //print("date from list :",videoAsset.creationDate)
+        print("infos", infos)
         let format1 = DateFormatter()
         format1.dateStyle = .short
-        let video_date = format1.string(from: videoAsset.creationDate!)
-        cell.setVideoTest(ind: video_date)
+        cell.setVideoTest(variety: infos[0], plot: infos[1], row: infos[2])
         cell.setImg(img: UIImage(named: "video2")!)
         return cell
     }
@@ -145,6 +157,10 @@ extension VIdeoListScreen: UITableViewDataSource, UITableViewDelegate{
         print("KEY")
         print(video_asset[indexPath.row].availableMetadataFormats)
         performSegue(withIdentifier: "playVideo", sender: avPlayerItem)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
     }
 }
