@@ -1,5 +1,5 @@
-# Design_Project
-2020 Design_Project - IOS App
+# Vineyard Data Collection iOS App
+
 
 ## This app is used to record 240fps video and gps data for the purpose of annual yield prediction
 
